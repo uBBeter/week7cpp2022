@@ -68,7 +68,11 @@ Create a set of integers `std::set<int>`. The set consists of the keys from the 
 
 > Usually `map<T, bool>` is a sign of an *anti-pattern*. In practice use `set<T>` unless you're extremely sure you need the map.
 
+## Exercise 3. `std::multimap`
 
+Consider a multimap `std::multimap<int, size_t>` which contains pairs "number from the original vector - index (position) of the number in the vector.
+
+Write functions that create and print this multimap.
 
 -----
 
