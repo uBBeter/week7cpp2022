@@ -3,6 +3,7 @@
 #include <random>
 #include <ctime>
 #include <map>
+#include <set>
 #include <algorithm>
 
 using std::cout;
@@ -13,6 +14,7 @@ using std::endl;
 typedef std::vector<int> VecInt;
 
 using MapInt = std::map<int, size_t>;
+using MultiMapInt = std::multimap<int, size_t>;
 
 // Generating random numbers:
 
@@ -26,7 +28,7 @@ VecInt generateVector(size_t n, int rangeStart, int rangeEnd)
     // now use the function call distr(gen) whenever you need a new random number
     // for example:
     // int rNum1 = distr(gen);
-    int rNum2 = distr(gen);
+    // int rNum2 = distr(gen);
 
     VecInt v;
 
@@ -70,6 +72,95 @@ MapInt makeMap(const VecInt& v)
     return mapInt;
 }
 
+bool query(const MapInt& mapInt, int key, size_t& value)
+{
+    if (mapInt.count(key))
+    {
+        value = mapInt.at(key);
+        return true;
+    }
+    return false;
+}
+
+std::map<int, bool> makeMapBool(const MapInt& m, int r, int q)
+{
+    std::map<int, bool> mapBool;
+    size_t value;
+    for (int i = r; i < q; ++i)
+    {
+        bool queryResult = query(m, i, value);
+        mapBool[i] = queryResult;
+        mapBool.insert({i, queryResult});
+    }
+    return mapBool;
+}
+
+
+std::set<int> makeSet(const MapInt& m, int r, int q)
+{
+    std::set<int> setInt;
+    size_t value;
+    for (int i = r; i < q; ++i)
+    {
+        bool queryResult = query(m, i, value);
+        if (queryResult)
+        {
+            setInt.insert(i);
+        }
+    }
+    return setInt;
+}
+
+
+MultiMapInt makeMultiMap(const VecInt& v)
+{
+    MultiMapInt mapInt;
+
+    for (size_t i = 0; i < v.size(); ++i)
+    {
+        mapInt.insert({v[i], i});
+    }
+    return mapInt;
+}
+
+
+void printMultiMap(const MultiMapInt& mapInt)
+{
+    for (const std::pair<const int, size_t>& item: mapInt)
+    {
+        cout << "Element " << item.first << " appears " << item.second << std::endl;
+    }
+}
+
+
+void printRange(std::multimap<int, size_t> mm, int start, int end)
+{
+    MultiMapInt::const_iterator itBegin = mm.lower_bound(start);
+    MultiMapInt::const_iterator itEnd = mm.upper_bound(end);
+    for (MultiMapInt::const_iterator it = itBegin; it != itEnd; ++it)
+    {
+        cout << "Element " << it->first << " appears " << it->second << std::endl;
+    }
+}
+
+
+void printMultiMap(const MultiMapInt& mapInt)
+{
+    for (const std::pair<const int, size_t>& item: mapInt)
+    {
+        cout << "Element " << item.first << " appears " << item.second << std::endl;
+    }
+}
+
+
+void printMapBool(const std::map<int, bool>& mapBool)
+{
+    for (const std::pair<const int, bool>& item: mapBool)
+    {
+        cout << "Element " << item.first << " value: " << item.second << std::endl;
+    }
+}
+
 void printMap(const MapInt& mapInt)
 {
     for (const std::pair<const int, size_t>& item: mapInt)
@@ -89,14 +180,14 @@ void printMap(const MapInt& mapInt)
 
 void addNumberToValues(MapInt& m, int number)
 {
-    for (std::pair<const int, size_t>& item: m)
-    {
-        item.first += number;
-    }
-    for (MapInt::iterator it = m.begin(); it != m.end(); ++it)
-    {
-        it->first += number;
-    }
+    // for (std::pair<const int, size_t>& item: m)
+    // {
+    //     item.first += number;
+    // }
+    // for (MapInt::iterator it = m.begin(); it != m.end(); ++it)
+    // {
+    //     it->first += number;
+    // }
     // for
     // {
         // value += number
@@ -127,11 +218,11 @@ int main()
     addNumberToValues(mapInt, 10);
     printMap(mapInt); 
 
-    size_t el;
+    std::map<int, bool> mapBool = makeMapBool(mapInt, r, q);
 
-    // bool result = query(mapInt, 5, el);
+    printMapBool(mapBool);
 
-    int k = 5;
+    // int k = 5;
     // std::pair<bool, size_t> outPair = query(mapInt, k);
 
 
