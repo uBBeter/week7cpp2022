@@ -70,9 +70,34 @@ Create a set of integers `std::set<int>`. The set consists of the keys from the 
 
 ## Exercise 3. `std::multimap`
 
-Consider a multimap `std::multimap<int, size_t>` which contains pairs "number from the original vector - index (position) of the number in the vector.
+Consider a multimap `std::multimap<int, size_t>` which contains pairs "number from the original vector - index (position) of the number in the vector".
 
-Write functions that create and print this multimap.
+* Create a function that creates the multimap from the initial vector of random numbers
+* Create a function that prints the multimap as pairs "key - value"
+* Create a function `printRange(std::multimap<int, size_t> mm, int start, int end);` that prints elements (pairs) of multimap with *keys* in a given range `[start, end)`.
+  * Add an overloaded version of the function with only two input arguments `printRange(std::multimap<int, size_t> mm, int key);` that prints all elements equal to `key` if such elements exist and does nothing otherwise.
+  * Use `lower_bound`, `upper_bound` and `equal_range`.
+
+https://en.cppreference.com/w/cpp/container/map/equal_range
+
+## Exercise 4. Unordered containers
+
+Practice using containers `std::unordered_map` and `std::unordered_set`.
+
+* Create a function that fills an `std::unordered_map` similar to the one in **Exercise 1**.
+* Create a function that prints such a set.
+  * Is the order of elements different?
+* Modify the function that creates the `std::unordered_map`. Print the following information about the container as you add elements to it:
+  * `bucker_count`
+  * `max_bucket_count`
+  * `bucket_size`
+  * `bucket`
+  * `load_factor`
+
+Consult documentation to learn how to use these functions - https://en.cppreference.com/w/cpp/container/unordered_map
+
+Consult illustrations in this repository for a visual explanation of some of the workings of unordered containers.
+
 
 -----
 
