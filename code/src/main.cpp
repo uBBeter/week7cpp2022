@@ -47,7 +47,7 @@ int main()
     int q;
 
     cin >> n >> r >> q;
-
+    cout << "lool";
 
     return 0;
 }
